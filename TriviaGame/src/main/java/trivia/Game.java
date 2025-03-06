@@ -44,10 +44,11 @@ public class Game implements IGame {
       
    }
    public void handleMove(int roll){
-      playerManager.getCurrentPlayer().move(roll);;
-      logger.log(playerManager.getCurrentPlayer().getName()
+      Player currentPlayer = playerManager.getCurrentPlayer();
+      currentPlayer.move(roll);
+      logger.log(currentPlayer.getName()
                          + "'s new location is "
-                         + playerManager.getCurrentPlayer().getPosition());
+                         + currentPlayer.getPosition());
       logger.log("The category is " + currentCategory());
       askQuestion();
    }
@@ -61,12 +62,13 @@ public class Game implements IGame {
    }
 
    public boolean handleCorrectAnswer() {
-      if(!playerManager.getCurrentPlayer().isInPenaltyBox()){
+      Player currentPlayer = playerManager.getCurrentPlayer();
+      if(!currentPlayer.isInPenaltyBox()){
          logger.log("Answer was correct!!!!");
-         playerManager.getCurrentPlayer().addGoldCoin();
-         logger.log(playerManager.getCurrentPlayer().getName()
+         currentPlayer.addGoldCoin();
+         logger.log(currentPlayer.getName()
                             + " now has "
-                            + playerManager.getCurrentPlayer().getGoldCoins()
+                            + currentPlayer.getGoldCoins()
                             + " Gold Coins.");
       }
 
@@ -74,9 +76,10 @@ public class Game implements IGame {
    }
 
    public boolean wrongAnswer() {
+      Player currentPlayer = playerManager.getCurrentPlayer();
       logger.log("Question was incorrectly answered");
-      logger.log(playerManager.getCurrentPlayer().getName() + " was sent to the penalty box");
-      playerManager.getCurrentPlayer().setInPenaltyBox(true);
+      logger.log(currentPlayer.getName() + " was sent to the penalty box");
+      currentPlayer.setInPenaltyBox(true);
 
       return true;
    }
