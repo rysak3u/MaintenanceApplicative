@@ -10,10 +10,6 @@ public class Game implements IGame {
       questions = new QuestionsDeck();
    }
 
-   public boolean isPlayable() {
-      return (playerManager.howManyPlayers() >= 2);
-   }
-
    public boolean add(String playerName) {
       playerManager.addPlayer(playerName);
 
