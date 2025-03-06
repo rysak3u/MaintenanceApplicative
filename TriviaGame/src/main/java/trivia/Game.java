@@ -73,7 +73,7 @@ public class Game implements IGame {
 
    public boolean handleCorrectAnswer() {
       if(!getCurrentPlayer().isInPenaltyBox()){
-         System.out.println("Answer was corrent!!!!");
+         System.out.println("Answer was correct!!!!");
          getCurrentPlayer().addGoldCoin();
          System.out.println(players.get(currentPlayer).getName()
                             + " now has "
