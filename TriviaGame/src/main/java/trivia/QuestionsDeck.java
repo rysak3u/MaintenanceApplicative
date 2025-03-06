@@ -3,7 +3,7 @@ package trivia;
 import java.util.EnumMap;
 import java.util.LinkedList;
 
-public class QuestionsDeck {
+public class QuestionsDeck implements IQuestionsDeck {
    private final EnumMap<Category,LinkedList<Question>> questions = new EnumMap<>(Category.class);
 
     public QuestionsDeck(){

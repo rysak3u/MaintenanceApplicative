@@ -5,9 +5,8 @@ import java.util.ArrayList;
 // REFACTOR ME
 public class Game implements IGame {
    ArrayList<Player> players = new ArrayList<Player>();
-   QuestionsDeck questions;
+   IQuestionsDeck questions;
    int currentPlayer = -1; //On Commence à -1 car on fait le getNextPlayer() dans le roll
-   boolean isGettingOutOfPenaltyBox;
 
    public Game() {
       questions = new QuestionsDeck();
