@@ -62,7 +62,7 @@ public class GameOld implements IGame {
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
-
+            inPenaltyBox[currentPlayer] = false;
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
                                + places[currentPlayer]);
