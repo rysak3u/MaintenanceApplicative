@@ -1,7 +1,6 @@
 package trivia;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 // REFACTOR ME
 public class Game implements IGame {
@@ -10,25 +9,13 @@ public class Game implements IGame {
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
-   LinkedList<String> popQuestions = new LinkedList<String>();
-   LinkedList<String> scienceQuestions = new LinkedList<String>();
-   LinkedList<String> sportsQuestions = new LinkedList<String>();
-   LinkedList<String> rockQuestions = new LinkedList<String>();
+   QuestionsDeck questions;
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
 
    public Game() {
-      for (int i = 0; i < 50; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(createRockQuestion(i));
-      }
-   }
-
-   public String createRockQuestion(int index) {
-      return "Rock Question " + index;
+      questions = new QuestionsDeck();
    }
 
    public boolean isPlayable() {
@@ -90,25 +77,12 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
-      switch (currentCategory()) {
-         case "Pop":
-            System.out.println(popQuestions.removeFirst());
-            break;
-         case "Science":
-            System.out.println(scienceQuestions.removeFirst());
-            break;
-         case "Sports":
-            System.out.println(sportsQuestions.removeFirst());  
-            break;
-         default:
-            System.out.println(rockQuestions.removeFirst());
-            break;
-      }
+      System.out.println(questions.getNextQuestion(currentCategory()));
    }
 
 
-   private String currentCategory() {
-      return Category.fromPosition(places[currentPlayer]-1).toString();
+   private Category currentCategory() {
+      return Category.fromPosition(places[currentPlayer]-1);
    }
 
    public boolean handleCorrectAnswer() {
