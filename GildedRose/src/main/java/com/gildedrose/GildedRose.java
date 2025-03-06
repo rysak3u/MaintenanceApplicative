@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 class GildedRose {
+    private static final String SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros";
     private static final String AGED_BRIE = "Aged Brie";
     private static final String BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
     Item[] items;
@@ -8,7 +9,20 @@ class GildedRose {
     public GildedRose(Item[] items) {
         this.items = items;
     }
-    public int handleReverseQuality(Item i ){
+    public void updateQuality() {
+        for (Item item : items) {
+            if(!item.name.equals(SULFURAS_HAND_OF_RAGNAROS)){
+                item.sellIn = item.sellIn -1;
+                if (item.name.equals(AGED_BRIE)|| item.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT)){
+                    item.quality = handleReverseQuality(item);
+                }else{
+                    item.quality = handleQuality(item);
+                }
+            }
+        }
+    }
+    
+    public int handleReverseQuality(Item i){
         if(i.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT)){
             return handleBackstagePass(i);
         }else {
@@ -51,17 +65,5 @@ class GildedRose {
             }
         }
         return i.quality;
-    }
-    public void updateQuality() {
-        for (Item i : items) {
-            if(!i.name.equals("Sulfuras, Hand of Ragnaros")){
-                i.sellIn = i.sellIn -1;
-                if (i.name.equals(AGED_BRIE)|| i.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT)){
-                    i.quality = handleReverseQuality(i);
-                }else{
-                    i.quality = handleQuality(i);
-                }
-            }
-        }
     }
 }
