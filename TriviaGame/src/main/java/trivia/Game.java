@@ -17,6 +17,7 @@ public class Game implements IGame {
 
       logger.log(playerName + " was added");
       logger.log("They are player number " + playerManager.howManyPlayers());
+      
       return true;
    }
 
