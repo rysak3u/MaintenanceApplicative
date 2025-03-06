@@ -50,28 +50,31 @@ public class Game implements IGame {
       return players.size();
    }
 
+   public void handlePlayerInPenaltyBox(int roll){
+      if (roll % 2 != 0) {
+         isGettingOutOfPenaltyBox = true;
+
+         System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+         places[currentPlayer] = places[currentPlayer] + roll;
+         if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+
+         System.out.println(players.get(currentPlayer)
+                            + "'s new location is "
+                            + places[currentPlayer]);
+         System.out.println("The category is " + currentCategory());
+         askQuestion();
+      } else {
+         System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+         isGettingOutOfPenaltyBox = false;
+      }
+   }
+
    public void roll(int roll) {
       System.out.println(players.get(currentPlayer) + " is the current player");
       System.out.println("They have rolled a " + roll);
 
       if (inPenaltyBox[currentPlayer]) {
-         if (roll % 2 != 0) {
-            isGettingOutOfPenaltyBox = true;
-
-            System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
-
-            System.out.println(players.get(currentPlayer)
-                               + "'s new location is "
-                               + places[currentPlayer]);
-            System.out.println("The category is " + currentCategory());
-            askQuestion();
-         } else {
-            System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-            isGettingOutOfPenaltyBox = false;
-         }
-
+        handlePlayerInPenaltyBox(roll);
       } else {
 
          places[currentPlayer] = places[currentPlayer] + roll;
@@ -87,28 +90,25 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
-      if (currentCategory() == "Pop")
-         System.out.println(popQuestions.removeFirst());
-      if (currentCategory() == "Science")
-         System.out.println(scienceQuestions.removeFirst());
-      if (currentCategory() == "Sports")
-         System.out.println(sportsQuestions.removeFirst());
-      if (currentCategory() == "Rock")
-         System.out.println(rockQuestions.removeFirst());
+      switch (currentCategory()) {
+         case "Pop":
+            System.out.println(popQuestions.removeFirst());
+            break;
+         case "Science":
+            System.out.println(scienceQuestions.removeFirst());
+            break;
+         case "Sports":
+            System.out.println(sportsQuestions.removeFirst());  
+            break;
+         default:
+            System.out.println(rockQuestions.removeFirst());
+            break;
+      }
    }
 
 
    private String currentCategory() {
-      if (places[currentPlayer] - 1 == 0) return "Pop";
-      if (places[currentPlayer] - 1 == 4) return "Pop";
-      if (places[currentPlayer] - 1 == 8) return "Pop";
-      if (places[currentPlayer] - 1 == 1) return "Science";
-      if (places[currentPlayer] - 1 == 5) return "Science";
-      if (places[currentPlayer] - 1 == 9) return "Science";
-      if (places[currentPlayer] - 1 == 2) return "Sports";
-      if (places[currentPlayer] - 1 == 6) return "Sports";
-      if (places[currentPlayer] - 1 == 10) return "Sports";
-      return "Rock";
+      return Category.fromPosition(places[currentPlayer]-1).toString();
    }
 
    public boolean handleCorrectAnswer() {
