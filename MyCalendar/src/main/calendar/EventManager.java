@@ -12,8 +12,19 @@ public class EventManager {
     }
 
     public void ajouterEvent(Event e) {
-        events.add(e);
+        if(!isConflicting(e)){
+            events.add(e);
+        }
     }
+
+    public boolean isConflicting(Event e){
+        for(Event e2 : events){
+            if(e2.conflit(e)){
+                return true;
+            }
+        }
+        return false;
+    }   
 
     public List<Event> getEvents() {
         return new ArrayList<>(events);

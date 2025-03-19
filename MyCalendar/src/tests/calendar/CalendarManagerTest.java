@@ -54,20 +54,4 @@ class CalendarManagerTest {
         assertTrue(result.contains(eventPeriodique));
         assertFalse(result.contains(eventPasDansPeriode));
     }
-
-//     @Test
-//     void testConflit() {
-//         Event rdv = new RendezVous(new TitreEvenement("Dentiste"), new Proprietaire("Alice"),
-//                 new DateEvenement(now.plusHours(1)), new DureeEvenement(60));
-
-//         Event autreRdv = new RendezVous(new TitreEvenement("Médecin"), new Proprietaire("Bob"),
-//                 new DateEvenement(now.plusHours(1).plusMinutes(30)), new DureeEvenement(60));
-
-//         Event periodicEvent = new EvenementPeriodique(new TitreEvenement("Sport"), new Proprietaire("Alice"),
-//                 new DateEvenement(now.minusDays(3)), new DureeEvenement(30), new FrequenceJours(2));
-
-//         assertTrue(manager.conflit(rdv, autreRdv));
-//         assertFalse(manager.conflit(rdv, periodicEvent));
-//     }
-// }
 }
