@@ -1,5 +1,7 @@
 package src.main.calendar.event;
 
+import java.time.LocalDateTime;
+
 public class EvenementPeriodique extends Event {
     private final FrequenceJours frequenceJours;
 
@@ -15,5 +17,16 @@ public class EvenementPeriodique extends Event {
 
     public FrequenceJours getFrequenceJours() {
         return frequenceJours;
+    }
+    @Override
+    public  boolean appartientAPeriode(LocalDateTime debut, LocalDateTime fin){
+        LocalDateTime temp = getDateDebut().getDate();
+        while (temp.isBefore(fin)) {
+            if (!temp.isBefore(debut)) {
+                return true;
+            }
+            temp = temp.plusDays(getFrequenceJours().getFrequenceJours());
+        }
+        return false;
     }
 }

@@ -1,6 +1,5 @@
 package src.main.calendar;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import src.main.calendar.event.EvenementPeriodique;
@@ -24,22 +23,8 @@ public class CalendarManager {
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        List<Event> result = new ArrayList<>();
-        for (Event e : getEvents()) {
-            if (e instanceof EvenementPeriodique) {
-                LocalDateTime temp = e.getDateDebut().getDate();
-                while (temp.isBefore(fin)) {
-                    if (!temp.isBefore(debut)) {
-                        result.add(e);
-                        break;
-                    }
-                    temp = temp.plusDays(((EvenementPeriodique)e).getFrequenceJours().getFrequenceJours());
-                }
-            } else if (!e.getDateDebut().getDate().isBefore(debut) && !e.getDateDebut().getDate().isAfter(fin)) {
-                result.add(e);
-            }
-        }
-        return result;
+        return eventManager.getEvents().stream()
+                .filter(e -> e.appartientAPeriode(debut, fin)).toList();
     }
 
     public boolean conflit(Event e1, Event e2) {

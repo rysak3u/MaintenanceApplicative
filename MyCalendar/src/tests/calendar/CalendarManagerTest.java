@@ -41,14 +41,18 @@ class CalendarManagerTest {
         Event eventPeriodique = new EvenementPeriodique(new TitreEvenement("Gym"), new Proprietaire("Alice"),
                 new DateEvenement(now.minusDays(5)), new DureeEvenement(30), new FrequenceJours(2));
 
+        Event eventPasDansPeriode = new RendezVous(new TitreEvenement("Dentiste"), new Proprietaire("Alice"),
+        new DateEvenement(now.plusDays(6)), new DureeEvenement(60));
         manager.ajouterEvent(rdv);
         manager.ajouterEvent(reunion);
         manager.ajouterEvent(eventPeriodique);
+        manager.ajouterEvent(eventPasDansPeriode);
 
         List<Event> result = manager.eventsDansPeriode(now, now.plusDays(3));
         assertTrue(result.contains(rdv));
         assertTrue(result.contains(reunion));
         assertTrue(result.contains(eventPeriodique));
+        assertFalse(result.contains(eventPasDansPeriode));
     }
 
     @Test

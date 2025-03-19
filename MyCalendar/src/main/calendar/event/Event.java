@@ -37,6 +37,8 @@
 // }
 package src.main.calendar.event;
 
+import java.time.LocalDateTime;
+
 public abstract class Event {
     protected final TitreEvenement titre;
     protected final Proprietaire proprietaire;
@@ -69,4 +71,5 @@ public abstract class Event {
 
     public abstract String description();
 
+    public abstract boolean appartientAPeriode(LocalDateTime debut, LocalDateTime fin);
 }
