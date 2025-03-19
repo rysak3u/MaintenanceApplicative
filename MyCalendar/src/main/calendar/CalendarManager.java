@@ -9,23 +9,23 @@ import src.main.calendar.event.Event;
 
 
 public class CalendarManager {
-    public List<Event> events;
+    public EventManager eventManager;
 
     public CalendarManager() {
-        this.events = new ArrayList<>();
+        this.eventManager = new EventManager();
     }
 
     public List<Event> getEvents(){
-        return events;
+        return eventManager.getEvents();
     }
 
     public void ajouterEvent(Event e) {
-        events.add(e);
+        eventManager.ajouterEvent(e);
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
-        for (Event e : events) {
+        for (Event e : getEvents()) {
             if (e instanceof EvenementPeriodique) {
                 LocalDateTime temp = e.getDateDebut().getDate();
                 while (temp.isBefore(fin)) {
@@ -57,7 +57,7 @@ public class CalendarManager {
     }
 
     public void afficherEvenements() {
-        for (Event e : events) {
+        for (Event e : this.getEvents()) {
             System.out.println(e.description());
         }
     }
