@@ -71,5 +71,17 @@ public abstract class Event {
 
     public abstract String description();
 
-    public abstract boolean appartientAPeriode(LocalDateTime debut, LocalDateTime fin);
+    public boolean appartientAPeriode(LocalDateTime debut, LocalDateTime fin){
+        return !getDateDebut().getDate().isBefore(debut) && !getDateDebut().getDate().isAfter(fin);
+    }
+
+    public boolean conflit(Event e){
+        LocalDateTime fin1 = getDateDebut().getDate().plusMinutes(getDuree().getDureeMinutes());
+        LocalDateTime fin2 = e.getDateDebut().getDate().plusMinutes(e.getDuree().getDureeMinutes());
+        
+        if ((e.getDateDebut().getDate().isBefore(fin2) && fin1.isAfter(e.getDateDebut().getDate()))&& !(e instanceof EvenementPeriodique)) {
+                   return true;
+        }
+        return false;
+    }
 }

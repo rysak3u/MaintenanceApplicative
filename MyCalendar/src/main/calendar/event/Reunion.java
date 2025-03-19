@@ -1,6 +1,5 @@
 package src.main.calendar.event;
 
-import java.time.LocalDateTime;
 
 public class Reunion extends Event {
     private final Lieu lieu;
@@ -15,9 +14,5 @@ public class Reunion extends Event {
     @Override
     public String description() {
         return "Réunion : " + titre + " à " + lieu + " avec " + participants;
-    }
-    @Override
-    public boolean appartientAPeriode(LocalDateTime debut, LocalDateTime fin) {
-        return !getDateDebut().getDate().isBefore(debut) && !getDateDebut().getDate().isAfter(fin);
     }
 }
