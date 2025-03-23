@@ -6,9 +6,10 @@ import java.util.List;
 public class UserManager {
 
     private List<User> utilisateurs;
-
+    private String currentUser = null;
     public UserManager() {
         this.utilisateurs = new ArrayList<>();
+
     }
 
     public boolean verifierConnexion(String username, String password) {
@@ -39,5 +40,11 @@ public class UserManager {
 
     public List<User> getUtilisateurs() {
         return utilisateurs;
+    }
+    public String getCurrentUser(){
+        return this.currentUser;
+    }
+    public void setCurrentUser(String newUser){
+        this.currentUser = newUser;
     }
 }

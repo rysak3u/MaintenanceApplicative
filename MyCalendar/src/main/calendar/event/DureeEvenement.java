@@ -7,7 +7,7 @@ public class DureeEvenement {
     private final int dureeMinutes;
 
     public DureeEvenement(int dureeMinutes) {
-        if (dureeMinutes <= 0) {
+        if (dureeMinutes < 0) {
             throw new IllegalArgumentException("La durée de l'événement doit être positive.");
         }
         this.dureeMinutes = dureeMinutes;
