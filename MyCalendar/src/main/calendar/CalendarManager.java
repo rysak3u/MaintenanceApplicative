@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import src.main.calendar.event.Event;
+import src.main.calendar.menu.User;
 
 
 
@@ -30,6 +31,13 @@ public class CalendarManager {
     public void afficherEvenements() {
         for (Event e : this.getEvents()) {
             System.out.println(e.description());
+        }
+    }
+    public void afficherEvenementsUtilisateur(User user){
+        for(Event e : this.getEvents()){
+            if(e.getProprietaire().getNom().equals(user.getUsername())){
+                System.out.println(e.description());
+            }
         }
     }
 }

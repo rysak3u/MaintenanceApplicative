@@ -6,7 +6,7 @@ import java.util.List;
 public class UserManager {
 
     private List<User> utilisateurs;
-    private String currentUser = null;
+    private User currentUser = null;
     public UserManager() {
         this.utilisateurs = new ArrayList<>();
 
@@ -41,15 +41,15 @@ public class UserManager {
     public List<User> getUtilisateurs() {
         return utilisateurs;
     }
-    public String getCurrentUser(){
+    public User getCurrentUser(){
         return this.currentUser;
     }
-    public void setCurrentUser(String newUser){
+    public void setCurrentUser(User newUser){
         this.currentUser = newUser;
     }
     public boolean seConnecter(String utilisateur, String motDePasse) {
         if (verifierConnexion(utilisateur, motDePasse)) {
-            setCurrentUser(utilisateur);
+            setCurrentUser(trouverUtilisateur(utilisateur));
             return true;
         }
         return false;
