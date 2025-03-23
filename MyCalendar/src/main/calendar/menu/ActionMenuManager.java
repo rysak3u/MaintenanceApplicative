@@ -1,11 +1,8 @@
 package src.main.calendar.menu;
 
 import java.time.LocalDateTime;
-import java.time.temporal.WeekFields;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -13,7 +10,6 @@ import src.main.calendar.CalendarManager;
 import src.main.calendar.event.DateEvenement;
 import src.main.calendar.event.DureeEvenement;
 import src.main.calendar.event.EvenementPeriodique;
-import src.main.calendar.event.Event;
 import src.main.calendar.event.FrequenceJours;
 import src.main.calendar.event.Lieu;
 import src.main.calendar.event.Participants;
@@ -46,66 +42,8 @@ public class ActionMenuManager {
         gestionEvenements.getOrDefault(choix, () -> System.out.println("Choix invalide")).run();
     }
     private void afficherEvenements() {
-        System.out.println("\n=== Menu de visualisation d'Événements ===");
-        System.out.println("1 - Afficher TOUS les événements");
-        System.out.println("2 - Afficher les événements d'un MOIS précis");
-        System.out.println("3 - Afficher les événements d'une SEMAINE précise");
-        System.out.println("4 - Afficher les événements d'un JOUR précis");
-        System.out.println("5 - Retour");
-        System.out.print("Votre choix : ");
-    
-        String choix = scanner.nextLine();
-    
-        // Création de la Map d'actions
-        Map<String, Runnable> actionsMenu = new HashMap<>();
-        actionsMenu.put("1", ()-> {
-            calendar.afficherEvenementsUtilisateur(userManager.getCurrentUser());
-        });
-    
-        actionsMenu.put("2", () -> {
-            System.out.print("Entrez l'année (AAAA) : ");
-            int anneeMois = Integer.parseInt(scanner.nextLine());
-            System.out.print("Entrez le mois (1-12) : ");
-            int mois = Integer.parseInt(scanner.nextLine());
-    
-            LocalDateTime debutMois = LocalDateTime.of(anneeMois, mois, 1, 0, 0);
-            LocalDateTime finMois = debutMois.plusMonths(1).minusSeconds(1);
-    
-            afficherListe(calendar.eventsDansPeriode(debutMois, finMois));
-        });
-    
-        actionsMenu.put("3", () -> {
-            System.out.print("Entrez l'année (AAAA) : ");
-            int anneeSemaine = Integer.parseInt(scanner.nextLine());
-            System.out.print("Entrez le numéro de semaine (1-52) : ");
-            int semaine = Integer.parseInt(scanner.nextLine());
-    
-            LocalDateTime debutSemaine = LocalDateTime.now()
-                    .withYear(anneeSemaine)
-                    .with(WeekFields.of(Locale.FRANCE).weekOfYear(), semaine)
-                    .with(WeekFields.of(Locale.FRANCE).dayOfWeek(), 1)
-                    .withHour(0).withMinute(0);
-            LocalDateTime finSemaine = debutSemaine.plusDays(7).minusSeconds(1);
-    
-            afficherListe(calendar.eventsDansPeriode(debutSemaine, finSemaine));
-        });
-    
-        actionsMenu.put("4", () -> {
-            System.out.print("Entrez l'année (AAAA) : ");
-            int anneeJour = Integer.parseInt(scanner.nextLine());
-            System.out.print("Entrez le mois (1-12) : ");
-            int moisJour = Integer.parseInt(scanner.nextLine());
-            System.out.print("Entrez le jour (1-31) : ");
-            int jour = Integer.parseInt(scanner.nextLine());
-    
-            LocalDateTime debutJour = LocalDateTime.of(anneeJour, moisJour, jour, 0, 0);
-            LocalDateTime finJour = debutJour.plusDays(1).minusSeconds(1);
-    
-            afficherListe(calendar.eventsDansPeriode(debutJour, finJour));
-        });
-    
-        // Action pour "Retour" ou message en cas de choix invalide
-        actionsMenu.getOrDefault(choix, () -> System.out.println("Choix invalide")).run();
+        EventMenuManager eventMenuManager = new EventMenuManager(scanner, userManager, calendar);
+        eventMenuManager.afficherEventMenu();
     }
         private void ajouterRendezVous() {
         System.out.print("Titre de l'événement : ");
@@ -184,15 +122,5 @@ public class ActionMenuManager {
     private void seDeconnecter() {
         System.out.println("Déconnexion...");
         userManager.setCurrentUser(null);
-    }
-        private static void afficherListe(List<Event> evenements) {
-        if (evenements.isEmpty()) {
-            System.out.println("Aucun événement trouvé pour cette période.");
-        } else {
-            System.out.println("Événements trouvés : ");
-            for (Event e : evenements) {
-                System.out.println("- " + e.description());
-            }
-        }
     }
 }
