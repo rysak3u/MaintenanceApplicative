@@ -69,12 +69,11 @@ public class Main {
         String utilisateur = scanner.nextLine();
         System.out.print("Mot de passe: ");
         String motDePasse = scanner.nextLine();
-
-        if (!userManager.verifierConnexion(utilisateur, motDePasse)) {
+    
+        if (userManager.seConnecter(utilisateur, motDePasse)) {
+            System.out.println("Connexion réussie !");
+        } else {
             System.out.println("Nom d'utilisateur ou mot de passe incorrect.");
-            utilisateur = null;
-        }else{
-            userManager.setCurrentUser(utilisateur);
         }
     }
 
