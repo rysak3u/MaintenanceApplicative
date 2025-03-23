@@ -47,4 +47,11 @@ public class UserManager {
     public void setCurrentUser(String newUser){
         this.currentUser = newUser;
     }
+    public boolean seConnecter(String utilisateur, String motDePasse) {
+        if (verifierConnexion(utilisateur, motDePasse)) {
+            setCurrentUser(utilisateur);
+            return true;
+        }
+        return false;
+    }
 }
