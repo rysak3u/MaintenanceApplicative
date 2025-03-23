@@ -17,7 +17,6 @@ import src.main.calendar.event.Proprietaire;
 import src.main.calendar.event.RendezVous;
 import src.main.calendar.event.Reunion;
 import src.main.calendar.event.TitreEvenement;
-
 public class ActionMenuManager {
     private final Scanner scanner;
     private final UserManager userManager;
@@ -29,25 +28,75 @@ public class ActionMenuManager {
         this.calendar = calendar;
     }
 
-    public void afficherActionMenu(){
-         Map<String, Runnable> gestionEvenements = new HashMap<>();
-        gestionEvenements.put("1", () -> afficherEvenements());
-        gestionEvenements.put("2", () -> ajouterRendezVous());
-        gestionEvenements.put("3", () -> ajouterReunion());
-        gestionEvenements.put("4", () -> ajouterEvenementPeriodique());
-        gestionEvenements.put("5", () -> seDeconnecter());
-
+    public void afficherActionMenu() {
+        afficherOptionsEvenements();
         System.out.print("Votre choix : ");
         String choix = scanner.nextLine();
+        traiterChoix(choix);
+    }
+
+    private void traiterChoix(String choix) {
+        Map<String, Runnable> gestionEvenements = new HashMap<>();
+        gestionEvenements.put("1", this::afficherEvenements);
+        gestionEvenements.put("2", this::ajouterRendezVous);
+        gestionEvenements.put("3", this::ajouterReunion);
+        gestionEvenements.put("4", this::ajouterEvenementPeriodique);
+        gestionEvenements.put("5", this::seDeconnecter);
         gestionEvenements.getOrDefault(choix, () -> System.out.println("Choix invalide")).run();
     }
+
+    private void afficherOptionsEvenements() {
+        System.out.println("\nBonjour, " + userManager.getCurrentUser());
+        System.out.println("\n=== Menu Gestionnaire d'Événements ===");
+        System.out.println("1 - Voir les événements");
+        System.out.println("2 - Ajouter un rendez-vous perso");
+        System.out.println("3 - Ajouter une réunion");
+        System.out.println("4 - Ajouter un évènement périodique");
+        System.out.println("5 - Se déconnecter");
+    }
+
     private void afficherEvenements() {
         EventMenuManager eventMenuManager = new EventMenuManager(scanner, userManager, calendar);
         eventMenuManager.afficherEventMenu();
     }
-        private void ajouterRendezVous() {
+
+    private void ajouterRendezVous() {
+        System.out.println("Ajouter un rendez-vous");
+        DateEvenement dateEvenement = demanderDateHeure();
         System.out.print("Titre de l'événement : ");
         String titre = scanner.nextLine();
+        calendar.ajouterEvent(new RendezVous(new TitreEvenement(titre), 
+                new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, new DureeEvenement(0)));
+        System.out.println("Événement ajouté.");
+    }
+
+    private void ajouterReunion() {
+        System.out.println("Ajouter une réunion");
+        DateEvenement dateEvenement = demanderDateHeure();
+        System.out.print("Titre de l'événement : ");
+        String titre = scanner.nextLine();
+        System.out.print("Lieu : ");
+        String lieu = scanner.nextLine();
+        String participants = userManager.getCurrentUser().getUsername();
+        participants = ajouterParticipants(participants);
+        calendar.ajouterEvent(new Reunion(new TitreEvenement(titre), new Proprietaire(participants), 
+                dateEvenement, new DureeEvenement(0), new Lieu(lieu), new Participants(Arrays.asList(participants.split(",")))));
+        System.out.println("Événement ajouté.");
+    }
+
+    private void ajouterEvenementPeriodique() {
+        System.out.println("Ajouter un événement périodique");
+        DateEvenement dateEvenement = demanderDateHeure();
+        System.out.print("Titre de l'événement : ");
+        String titre = scanner.nextLine();
+        System.out.print("Fréquence (en jours) : ");
+        int frequence = Integer.parseInt(scanner.nextLine());
+        calendar.ajouterEvent(new EvenementPeriodique(new TitreEvenement(titre),
+                new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, new DureeEvenement(0), new FrequenceJours(frequence)));
+        System.out.println("Événement ajouté.");
+    }
+
+    private DateEvenement demanderDateHeure() {
         System.out.print("Année (AAAA) : ");
         int annee = Integer.parseInt(scanner.nextLine());
         System.out.print("Mois (1-12) : ");
@@ -58,69 +107,22 @@ public class ActionMenuManager {
         int heure = Integer.parseInt(scanner.nextLine());
         System.out.print("Minute début (0-59) : ");
         int minute = Integer.parseInt(scanner.nextLine());
-        System.out.print("Durée (en minutes) : ");
-        int duree = Integer.parseInt(scanner.nextLine());
-        calendar.ajouterEvent(new RendezVous(new TitreEvenement(titre), new Proprietaire(userManager.getCurrentUser().getUsername()), new DateEvenement(LocalDateTime.of(annee, mois, jour, heure, minute)), new DureeEvenement(duree)));
-        System.out.println("Événement ajouté.");
+        return new DateEvenement(LocalDateTime.of(annee, mois, jour, heure, minute));
     }
 
-    // Ajouter une réunion
-    private void ajouterReunion() {
-        System.out.print("Titre de l'événement : ");
-                        String titre2 = scanner.nextLine();
-                        System.out.print("Année (AAAA) : ");
-                        int annee2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        int moisRdv2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        int jourRdv2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        int heure2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        int minute2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Durée (en minutes) : ");
-                        int duree2 = Integer.parseInt(scanner.nextLine());
-                        System.out.println("Lieu :");
-                        String lieu = scanner.nextLine();
-                        
-                        String participants = userManager.getCurrentUser().getUsername();
-                        
-                        System.out.println("Ajouter un participant ? (oui / non)");
-                        while (scanner.nextLine().equals("oui"))
-                        {
-                            System.out.print("Participants : ");
-                            participants += ", " + scanner.nextLine();
-                            System.out.println("Ajouter un participant ? (oui / non)");
-                        }
-
-                        calendar.ajouterEvent(new Reunion(new TitreEvenement(titre2), new Proprietaire(participants),new DateEvenement(LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2)), new DureeEvenement(duree2), new Lieu(lieu), new Participants(Arrays.asList(participants.split(",")))));
-                        System.out.println("Événement ajouté.");
+    private String ajouterParticipants(String participants) {
+        System.out.println("Ajouter un participant ? (oui / non)");
+        while (scanner.nextLine().equals("oui")) {
+            System.out.print("Participant : ");
+            participants += ", " + scanner.nextLine();
+            System.out.println("Ajouter un participant ? (oui / non)");
+        }
+        return participants;
     }
 
-    // Ajouter un événement périodique
-    private void ajouterEvenementPeriodique() {
-        System.out.print("Titre de l'événement : ");
-                        String titre3 = scanner.nextLine();
-                        System.out.print("Année (AAAA) : ");
-                        int annee3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        int moisRdv3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        int jourRdv3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        int heure3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        int minute3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Frequence (en jours) : ");
-                        int frequence = Integer.parseInt(scanner.nextLine());
-
-                        calendar.ajouterEvent(new EvenementPeriodique(new TitreEvenement(titre3), new Proprietaire(userManager.getCurrentUser().getUsername()), new DateEvenement(LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3)), new DureeEvenement(0), new FrequenceJours(frequence)));
-                        System.out.println("Événement ajouté.");
-    }
-
-    // Déconnexion
     private void seDeconnecter() {
         System.out.println("Déconnexion...");
         userManager.setCurrentUser(null);
     }
 }
+
