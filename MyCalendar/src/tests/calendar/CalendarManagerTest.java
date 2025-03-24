@@ -35,7 +35,7 @@ class CalendarManagerTest {
 
         manager.ajouterEvent(rdv);
         assertEquals(1, manager.getEvents().size());
-        assertEquals("RDV : Dentiste à " + now.plusDays(1), manager.getEvents().get(0).description());
+        assertEquals("("+rdv.getId()+")" +"RDV : Dentiste à " + now.plusDays(1), manager.getEvents().get(0).description());
     }
 
     @Test
