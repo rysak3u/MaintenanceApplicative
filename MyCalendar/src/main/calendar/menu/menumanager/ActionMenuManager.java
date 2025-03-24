@@ -9,6 +9,7 @@ import java.util.Scanner;
 import src.main.calendar.event.DateEvenement;
 import src.main.calendar.event.DureeEvenement;
 import src.main.calendar.event.TitreEvenement;
+import src.main.calendar.event.evenementvalidation.EvenementAvecValidation;
 import src.main.calendar.event.periodique.EvenementPeriodique;
 import src.main.calendar.event.periodique.FrequenceJours;
 import src.main.calendar.event.rendezvous.RendezVous;
@@ -42,7 +43,8 @@ public class ActionMenuManager {
         gestionEvenements.put("2", this::ajouterRendezVous);
         gestionEvenements.put("3", this::ajouterReunion);
         gestionEvenements.put("4", this::ajouterEvenementPeriodique);
-        gestionEvenements.put("5", this::seDeconnecter);
+        gestionEvenements.put("5", this::ajouterEvenementValidation);
+        gestionEvenements.put("6", this::seDeconnecter);
         gestionEvenements.getOrDefault(choix, () -> System.out.println("Choix invalide")).run();
     }
 
@@ -53,7 +55,8 @@ public class ActionMenuManager {
         System.out.println("2 - Ajouter un rendez-vous perso");
         System.out.println("3 - Ajouter une réunion");
         System.out.println("4 - Ajouter un évènement périodique");
-        System.out.println("5 - Se déconnecter");
+        System.out.println("5 - Ajouter un évènement à validation obligatoire");
+        System.out.println("6 - Se déconnecter");
     }
 
     private void afficherEvenements() {
@@ -96,7 +99,13 @@ public class ActionMenuManager {
                 new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, new DureeEvenement(0), new FrequenceJours(frequence)));
         System.out.println("Événement ajouté.");
     }
-
+    private void ajouterEvenementValidation(){
+        System.out.println("Ajouter un événement à validation");
+        DateEvenement dateEvenement = demanderDateHeure();
+        System.out.print("Titre de l'événement : ");
+        String titre = scanner.nextLine();
+        calendar.ajouterEvent(new EvenementAvecValidation(new TitreEvenement(titre), new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, new DureeEvenement(0)));
+    }
     private DateEvenement demanderDateHeure() {
         System.out.print("Année (AAAA) : ");
         int annee = Integer.parseInt(scanner.nextLine());
