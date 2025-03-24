@@ -13,7 +13,7 @@ public class RendezVous extends Event {
 
     @Override
     public String description() {
-        return "RDV : " + titre + " à " + dateDebut;
+        return  "("+this.id+")" +  "RDV : " + titre + " à " + dateDebut;
     }
 
 }

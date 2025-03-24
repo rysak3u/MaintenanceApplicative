@@ -24,7 +24,7 @@ public class EvenementAvecValidation extends Event {
     @Override
     public String description() {
         String validation = valide.isValide()?" (Validé par le propriétaire)":" (Validation requise)";
-        return "Événement avec validation : " + titre + validation;
+        return  "("+this.id+")" +  "Événement avec validation : " + titre + validation;
     }
 
     public void valider() {

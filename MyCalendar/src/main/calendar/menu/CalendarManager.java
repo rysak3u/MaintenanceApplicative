@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import src.main.calendar.event.Event;
+import src.main.calendar.event.EventId;
 import src.main.calendar.menu.user.User;
 
 
@@ -20,6 +21,10 @@ public class CalendarManager {
 
     public void ajouterEvent(Event e) {
         eventManager.ajouterEvent(e);
+    }
+
+    public boolean supprimerEvent(EventId id){
+        return eventManager.supprimerEvent(id);
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {

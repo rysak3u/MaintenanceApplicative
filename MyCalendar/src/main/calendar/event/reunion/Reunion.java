@@ -17,6 +17,6 @@ public class Reunion extends Event {
 
     @Override
     public String description() {
-        return "Réunion : " + titre + " à " + lieu + " avec " + participants;
+        return "("+this.id+")" + "Réunion : " + titre + " à " + lieu + " avec " + participants;
     }
 }

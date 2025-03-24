@@ -10,13 +10,16 @@ public abstract class Event {
     protected final Proprietaire proprietaire;
     protected final DateEvenement dateDebut;
     protected final DureeEvenement duree;
-
+    protected final EventId id;
     public Event(TitreEvenement titre, Proprietaire proprietaire, DateEvenement dateDebut, DureeEvenement duree) {
         this.titre = titre;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
         this.duree = duree;
+        this.id = new EventId();
     }   
+
+    
 
     public TitreEvenement getTitre() {
         return titre;
@@ -49,5 +52,17 @@ public abstract class Event {
                    return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return id.equals(event.getId());
+    }
+
+    public EventId getId() {
+        return id;
     }
 }

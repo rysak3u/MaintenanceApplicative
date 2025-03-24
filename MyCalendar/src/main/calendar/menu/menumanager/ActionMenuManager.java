@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import src.main.calendar.event.DateEvenement;
 import src.main.calendar.event.DureeEvenement;
+import src.main.calendar.event.EventId;
 import src.main.calendar.event.TitreEvenement;
 import src.main.calendar.event.evenementvalidation.EvenementAvecValidation;
 import src.main.calendar.event.periodique.EvenementPeriodique;
@@ -44,7 +45,8 @@ public class ActionMenuManager {
         gestionEvenements.put("3", this::ajouterReunion);
         gestionEvenements.put("4", this::ajouterEvenementPeriodique);
         gestionEvenements.put("5", this::ajouterEvenementValidation);
-        gestionEvenements.put("6", this::seDeconnecter);
+        gestionEvenements.put("6", this::supprimerEvent);
+        gestionEvenements.put("7", this::seDeconnecter);
         gestionEvenements.getOrDefault(choix, () -> System.out.println("Choix invalide")).run();
     }
 
@@ -56,7 +58,8 @@ public class ActionMenuManager {
         System.out.println("3 - Ajouter une réunion");
         System.out.println("4 - Ajouter un évènement périodique");
         System.out.println("5 - Ajouter un évènement à validation obligatoire");
-        System.out.println("6 - Se déconnecter");
+        System.out.println("6 - Supprimer un évènement");
+        System.out.println("7 - Se déconnecter");
     }
 
     private void afficherEvenements() {
@@ -109,6 +112,11 @@ public class ActionMenuManager {
         String titre = scanner.nextLine();
         DureeEvenement dureeEvenement = demanderDureeEvenement();
         calendar.ajouterEvent(new EvenementAvecValidation(new TitreEvenement(titre), new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement,dureeEvenement));
+    }
+    private void supprimerEvent(){
+        System.out.print("ID de l'évènement : ");
+        EventId eventId = new EventId(scanner.nextLine());
+        System.out.println(calendar.supprimerEvent(eventId)?"Evènement supprimé avec succès":"Aucun évènement trouvé");
     }
     private DateEvenement demanderDateHeure() {
         System.out.print("Année (AAAA) : ");
