@@ -14,6 +14,8 @@ public class EventManager {
     public void ajouterEvent(Event e) {
         if(!isConflicting(e)){
             events.add(e);
+        }else{
+            System.out.println("Désolé mais un événement est déjà sur cette période");
         }
     }
 

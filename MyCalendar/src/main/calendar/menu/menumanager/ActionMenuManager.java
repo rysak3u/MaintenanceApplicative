@@ -69,8 +69,9 @@ public class ActionMenuManager {
         DateEvenement dateEvenement = demanderDateHeure();
         System.out.print("Titre de l'événement : ");
         String titre = scanner.nextLine();
+        DureeEvenement dureeEvenement = demanderDureeEvenement();
         calendar.ajouterEvent(new RendezVous(new TitreEvenement(titre), 
-                new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, new DureeEvenement(0)));
+                new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement,dureeEvenement));
         System.out.println("Événement ajouté.");
     }
 
@@ -79,12 +80,13 @@ public class ActionMenuManager {
         DateEvenement dateEvenement = demanderDateHeure();
         System.out.print("Titre de l'événement : ");
         String titre = scanner.nextLine();
+        DureeEvenement dureeEvenement = demanderDureeEvenement();
         System.out.print("Lieu : ");
         String lieu = scanner.nextLine();
         String participants = userManager.getCurrentUser().getUsername();
         participants = ajouterParticipants(participants);
         calendar.ajouterEvent(new Reunion(new TitreEvenement(titre), new Proprietaire(participants), 
-                dateEvenement, new DureeEvenement(0), new Lieu(lieu), new Participants(Arrays.asList(participants.split(",")))));
+                dateEvenement, dureeEvenement, new Lieu(lieu), new Participants(Arrays.asList(participants.split(",")))));
         System.out.println("Événement ajouté.");
     }
 
@@ -95,8 +97,9 @@ public class ActionMenuManager {
         String titre = scanner.nextLine();
         System.out.print("Fréquence (en jours) : ");
         int frequence = Integer.parseInt(scanner.nextLine());
+        DureeEvenement dureeEvenement = demanderDureeEvenement();
         calendar.ajouterEvent(new EvenementPeriodique(new TitreEvenement(titre),
-                new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, new DureeEvenement(0), new FrequenceJours(frequence)));
+                new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, dureeEvenement, new FrequenceJours(frequence)));
         System.out.println("Événement ajouté.");
     }
     private void ajouterEvenementValidation(){
@@ -104,7 +107,8 @@ public class ActionMenuManager {
         DateEvenement dateEvenement = demanderDateHeure();
         System.out.print("Titre de l'événement : ");
         String titre = scanner.nextLine();
-        calendar.ajouterEvent(new EvenementAvecValidation(new TitreEvenement(titre), new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement, new DureeEvenement(0)));
+        DureeEvenement dureeEvenement = demanderDureeEvenement();
+        calendar.ajouterEvent(new EvenementAvecValidation(new TitreEvenement(titre), new Proprietaire(userManager.getCurrentUser().getUsername()), dateEvenement,dureeEvenement));
     }
     private DateEvenement demanderDateHeure() {
         System.out.print("Année (AAAA) : ");
@@ -119,7 +123,10 @@ public class ActionMenuManager {
         int minute = Integer.parseInt(scanner.nextLine());
         return new DateEvenement(LocalDateTime.of(annee, mois, jour, heure, minute));
     }
-
+    private DureeEvenement demanderDureeEvenement(){
+        System.out.print("Durée de l'évenement (en minutes)");
+        return new DureeEvenement(Integer.parseInt(scanner.nextLine()));
+    }
     private String ajouterParticipants(String participants) {
         System.out.println("Ajouter un participant ? (oui / non)");
         while (scanner.nextLine().equals("oui")) {
