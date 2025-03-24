@@ -1,4 +1,4 @@
-package src.main.calendar;
+package src.main.calendar.menu;
 
 import java.util.List;
 import src.main.calendar.event.Event;

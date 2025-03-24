@@ -1,7 +1,8 @@
 package src.main.calendar;
 
-import src.main.calendar.menu.MenuManager;
-import src.main.calendar.menu.UserManager;
+import src.main.calendar.menu.CalendarManager;
+import src.main.calendar.menu.menumanager.MenuManager;
+import src.main.calendar.menu.user.UserManager;
 
 import java.util.*;
 

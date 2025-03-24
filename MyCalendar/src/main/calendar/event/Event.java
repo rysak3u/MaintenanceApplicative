@@ -2,6 +2,9 @@ package src.main.calendar.event;
 
 import java.time.LocalDateTime;
 
+import src.main.calendar.event.periodique.EvenementPeriodique;
+import src.main.calendar.event.reunion.Proprietaire;
+
 public abstract class Event {
     protected final TitreEvenement titre;
     protected final Proprietaire proprietaire;

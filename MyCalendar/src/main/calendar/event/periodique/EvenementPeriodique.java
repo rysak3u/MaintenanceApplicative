@@ -1,6 +1,12 @@
-package src.main.calendar.event;
+package src.main.calendar.event.periodique;
 
 import java.time.LocalDateTime;
+
+import src.main.calendar.event.DateEvenement;
+import src.main.calendar.event.DureeEvenement;
+import src.main.calendar.event.Event;
+import src.main.calendar.event.TitreEvenement;
+import src.main.calendar.event.reunion.Proprietaire;
 
 public class EvenementPeriodique extends Event {
     private final FrequenceJours frequenceJours;

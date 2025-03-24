@@ -1,4 +1,4 @@
-package src.main.calendar.menu;
+package src.main.calendar.menu.user;
 
 import java.util.ArrayList;
 import java.util.List;

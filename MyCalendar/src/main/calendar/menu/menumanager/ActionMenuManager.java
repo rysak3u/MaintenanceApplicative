@@ -1,4 +1,4 @@
-package src.main.calendar.menu;
+package src.main.calendar.menu.menumanager;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -6,17 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import src.main.calendar.CalendarManager;
 import src.main.calendar.event.DateEvenement;
 import src.main.calendar.event.DureeEvenement;
-import src.main.calendar.event.EvenementPeriodique;
-import src.main.calendar.event.FrequenceJours;
-import src.main.calendar.event.Lieu;
-import src.main.calendar.event.Participants;
-import src.main.calendar.event.Proprietaire;
-import src.main.calendar.event.RendezVous;
-import src.main.calendar.event.Reunion;
 import src.main.calendar.event.TitreEvenement;
+import src.main.calendar.event.periodique.EvenementPeriodique;
+import src.main.calendar.event.periodique.FrequenceJours;
+import src.main.calendar.event.rendezvous.RendezVous;
+import src.main.calendar.event.reunion.Lieu;
+import src.main.calendar.event.reunion.Participants;
+import src.main.calendar.event.reunion.Proprietaire;
+import src.main.calendar.event.reunion.Reunion;
+import src.main.calendar.menu.CalendarManager;
+import src.main.calendar.menu.user.UserManager;
 public class ActionMenuManager {
     private final Scanner scanner;
     private final UserManager userManager;

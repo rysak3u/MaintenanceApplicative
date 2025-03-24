@@ -1,5 +1,9 @@
-package src.main.calendar.event;
+package src.main.calendar.event.reunion;
 
+import src.main.calendar.event.DateEvenement;
+import src.main.calendar.event.DureeEvenement;
+import src.main.calendar.event.Event;
+import src.main.calendar.event.TitreEvenement;
 
 public class Reunion extends Event {
     private final Lieu lieu;

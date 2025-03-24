@@ -1,4 +1,4 @@
-package src.main.calendar.event;
+package src.main.calendar.event.periodique;
 
 public class FrequenceJours{
     private final int frequenceJours;

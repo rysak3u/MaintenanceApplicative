@@ -1,4 +1,4 @@
-package src.main.calendar.event;
+package src.main.calendar.event.reunion;
 
 import java.util.Objects;
 

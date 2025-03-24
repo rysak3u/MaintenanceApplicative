@@ -2,8 +2,17 @@ package src.tests.calendar;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.main.calendar.CalendarManager;
+
 import src.main.calendar.event.*;
+import src.main.calendar.event.periodique.EvenementPeriodique;
+import src.main.calendar.event.periodique.FrequenceJours;
+import src.main.calendar.event.rendezvous.RendezVous;
+import src.main.calendar.event.reunion.Lieu;
+import src.main.calendar.event.reunion.Participants;
+import src.main.calendar.event.reunion.Proprietaire;
+import src.main.calendar.event.reunion.Reunion;
+import src.main.calendar.menu.CalendarManager;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

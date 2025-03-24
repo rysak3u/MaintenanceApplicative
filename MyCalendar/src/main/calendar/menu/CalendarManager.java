@@ -1,9 +1,9 @@
-package src.main.calendar;
+package src.main.calendar.menu;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import src.main.calendar.event.Event;
-import src.main.calendar.menu.User;
+import src.main.calendar.menu.user.User;
 
 
 

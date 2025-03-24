@@ -1,8 +1,10 @@
-package src.main.calendar.menu;
+package src.main.calendar.menu.menumanager;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import src.main.calendar.menu.user.UserManager;
 
 
 public class ConnectionMenuManager {

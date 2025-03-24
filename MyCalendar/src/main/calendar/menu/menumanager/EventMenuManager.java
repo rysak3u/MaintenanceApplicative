@@ -1,4 +1,4 @@
-package src.main.calendar.menu;
+package src.main.calendar.menu.menumanager;
 
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
@@ -8,8 +8,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
-import src.main.calendar.CalendarManager;
 import src.main.calendar.event.Event;
+import src.main.calendar.menu.CalendarManager;
+import src.main.calendar.menu.user.UserManager;
 
 public class EventMenuManager {
         private final Scanner scanner;

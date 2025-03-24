@@ -6,6 +6,10 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import src.main.calendar.event.*;
+import src.main.calendar.event.periodique.EvenementPeriodique;
+import src.main.calendar.event.periodique.FrequenceJours;
+import src.main.calendar.event.rendezvous.RendezVous;
+import src.main.calendar.event.reunion.Proprietaire;
 
 public class EventTest {
     private LocalDateTime now;

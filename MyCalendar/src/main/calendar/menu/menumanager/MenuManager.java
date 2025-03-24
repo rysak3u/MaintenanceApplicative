@@ -1,9 +1,10 @@
-package src.main.calendar.menu;
+package src.main.calendar.menu.menumanager;
 
 
 import java.util.Scanner;
 
-import src.main.calendar.CalendarManager;
+import src.main.calendar.menu.CalendarManager;
+import src.main.calendar.menu.user.UserManager;
 
 public class MenuManager {
     private final Scanner scanner;
